@@ -1,0 +1,276 @@
+\documentclass[12pt]{article}
+\input{mycommands.tex}
+\usepackage[left=1.5cm, right=1.5cm, top=1cm,bottom=1.6cm,]
+{geometry}
+\usepackage{mathrsfs}
+\usepackage{subcaption}
+
+\begin{document}
+
+\section{Steady solution}
+\begin{align}
+\tilde{F}\frac{\partial^2\alpha_n}{\partial z^2}-M\frac{\partial^2 \alpha_n}{\partial t^2}-\lambda_n\alpha_n=-Q_nt_n
+\end{align}
+with $\alpha_n=0$ on $z=0,1$
+\\ Assuming $\tilde{F}>>M$ or $M<<1$ to make the problem steady, this reduces to 
+\begin{align}
+\tilde{F}\frac{\partial^2\alpha_n}{\partial z^2}-\lambda\alpha=-Q_nt_n
+\end{align}
+If we have azimuthally uniform pressure then we can write 
+\begin{align}
+Q_n(z,t)=\tilde{P}(z,t)q_n
+\end{align}
+where 
+\begin{align}
+q_n=\tanh^2(2\sigma_0)\int_0^{\frac{\pi}{2}}C_P(\tau)Y_n(\tau)d\tau
+\end{align}
+and 
+\begin{align}
+C_P(\tau)=\frac{3\sin 2\tau}{\sinh 2\sigma_0}
+\end{align}
+As we are taking the pressure to be azimuthally uniform, the variation in $\tau$ is zero so $q_n$ is constant, along with $t_n$ is constant, $\lambda_n$ is constant and $\tilde{F}$ is constant. Hence we have 
+\begin{align}
+\tilde{F}\frac{\partial^2\alpha_n}{\partial z^2}-\lambda\alpha=-q_nt_n\tilde{P}(z)
+\end{align}
+This is an ODE. Re-arranging we find 
+\begin{align}
+\frac{\partial^2\alpha_n}{\partial z^2}-\mu^2\alpha=\frac{-q_nt_n\tilde{P}(z)}{\tilde{F}}
+\end{align}
+where $\mu^2=\frac{\lambda_n}{\tilde{F}}$
+\\ Lets take $\tilde{P}=-1$, so
+\begin{align}
+\frac{\partial^2\alpha_n}{\partial z^2}-\mu^2\alpha=\frac{q_nt_n}{\tilde{F}}
+\end{align}
+Due to the nature if this ODE we can look for a solution in the form 
+\begin{align*}
+\alpha=A\cosh[\mu_n(z-\frac{1}{2})]+B\sinh[\mu(z-\frac{1}{2})]-\frac{q_nt_n}{\lambda_n}
+\end{align*}
+Subbing into () we find that all values of $A$ and $B$ satisfy this ODE. However, we have conditions these must satisfy, being $\alpha=0$ on $z=0,1$ thus we have 
+\begin{align}
+0&=A\cosh(\frac{\mu_n}{2})-B\sinh(\frac{\mu_n}{2})-\frac{q_nt_n}{\lambda_n}
+\\0&=A\cosh(\frac{\mu_n}{2})+B\sinh(\frac{\mu_n}{2})-\frac{q_nt_n}{\lambda_n}
+\end{align}
+Hence 
+\begin{align}
+A&=\frac{q_nt_n}{\lambda_n}/\cosh(\frac{\mu_n}{2})
+\\B&=\frac{q_nt_n}{\lambda_n}/\sinh(\frac{\mu_n}{2})
+\end{align}
+As we want $\alpha$ to be even, we only take the $\cosh$ term, hence 
+\begin{align}
+\alpha=-\frac{q_nt_n}{\lambda_n}\left[1-\frac{\cosh[\mu_n(z-\frac{1}{2})]}{\cosh(\frac{\mu_n}{2})}\right]
+\end{align}
+This is also true when solving $$\tilde{F}\frac{\partial^2\alpha_n}{\partial z^2}-\lambda\alpha=-Q_nt_n$$ provided $Q_n$ is constant. This is true when $\tilde{p}=\tilde{p}(\tau)$ or $\tilde{p}=const$
+This solves to $$\alpha=\frac{Q_nt_n}{\lambda_n}\left[1-\frac{\cosh[\mu_n(z-\frac{1}{2})]}{\cosh(\frac{\mu_n}{2})}\right]$$
+
+
+
+
+
+\newpage
+\section{Evaluating Q}
+We have that 
+\begin{align*}
+Q_n(z,t)=-\tanh^2(2\sigma_0)\int_0^{\frac{\pi}{2}}\frac{1}{h}\frac{\partial}{\partial \tau}\left(\frac{\tilde{p}(\tau,z,t)}{\bar{B}(\tau)}\right)Y_n(\tau)d\tau
+\end{align*}
+Evaluating $$\frac{1}{h}\frac{\partial}{\partial \tau}\left( \frac{\tilde{p}(\tau,z,t)}{\bar{B}(\tau)}\right)$$
+Lets look at when $\tilde{p}=\tilde{p}(z,t)$ so that the pressure is azimuthally uniform. Hence we can take this out of the derivative like so
+$$\tilde{p}(z,t)\frac{1}{h}\frac{\partial}{\partial \tau}\left(\frac{1}{\bar{B}}\right)$$
+\begin{align*}
+&= \frac{1}{h}\frac{-2}{c^2\sinh 2\sigma_0}\frac{\partial}{\partial \tau}(h^3)
+\\ &= \frac{1}{h} \frac{-2}{c^2\sinh 2\sigma_0}\left[(3h^2)\frac{dh}{d\tau}\right]
+\\ &= \frac{-6}{c^2\sinh 2\sigma_0}\left[h\frac{dh}{d\tau}\right]
+\end{align*}
+We know $$h^2=c^2(\frac{1}{2}\cosh(2\sigma_0)-\frac{1}{2}\cos(2\tau))$$ so $$2h\frac{dh}{d\tau}=c^2[\sin 2\tau]$$ and $$h\frac{dh}{d\tau}=\frac{c^2[\sin 2\tau]}{2}$$ Hence $$= \frac{-6}{c^2\sinh 2\sigma_0}\left[\frac{c^2[\sin 2\tau]}{2}\right]$$ so
+$$\frac{1}{h}\frac{\partial}{\partial \tau}\left( \frac{\tilde{p}(z,t)}{\bar{B}(\tau)}\right)=\tilde{p}(z,t)\frac{-3\sin 2\tau}{\sinh 2\sigma_0}$$
+Hence we have $$Q_n(z,t)=\tilde{p}(z,t)q_n$$ where $$q_n=\tanh^2(2\sigma_0)\int_0^{\frac{\pi}{2}}C_P(\tau)Y_n(\tau)d\tau$$ with $$C_P(\tau)=\frac{3\sin 2\tau}{\sinh 2\sigma_0}$$
+
+\section{Evaluating Q with a non-azimuthally uniform pressure}
+We have that
+\begin{align*}
+Q_n(z,t)=-\tanh^2(2\sigma_0)\int_0^{\frac{\pi}{2}}\frac{1}{h}\frac{\partial}{\partial \tau}\left(\frac{\tilde{p}(\tau,z,t)}{\bar{B}(\tau)}\right)Y_n(\tau)d\tau
+\end{align*}
+Let $\tilde{p}=\tilde{p}(\tau,z,t)$ be a non-azimuthally uniform pressure.
+\\ Evaluating the derivative $$\frac{1}{h}\frac{\partial}{\partial \tau}\left[\frac{\tilde{p}}{\bar{B}(\tau)}\right]$$
+We can write this as $$\frac{1}{h}\frac{-2}{c^2\sinh 2\sigma_0}\frac{\partial}{\partial \tau}\left[h^3 \tilde{p}\right]$$
+Using product rule we have $$\frac{1}{h}\frac{-2}{c^2\sinh 2\sigma_0}\left[h^3 \tilde{p}'+3h^2\frac{dh}{d\tau}\tilde{p}\right]$$ factoring out the 3 and multiplying through by $\frac{1}{h}$ we get $$\frac{-6}{c^2\sinh 2\sigma_0}\left[\frac{h^2}{3} \tilde{p}'+h\frac{dh}{d\tau}\tilde{p}\right]$$ hence $$\frac{-6}{c^2\sinh 2\sigma_0}\left[\frac{c^2}{3}(\frac{1}{2}\cosh 2\sigma_0-\frac{1}{2}\cos 2\tau)\tilde{p}'+\frac{c^2[\sin 2\tau]}{2}\tilde{p}\right]$$ 
+This simplifies to $$\frac{1}{\sinh 2\sigma_0}\left[(\cos 2\tau - \cosh 2\sigma_0)\tilde{p}'-3\sin 2\tau \tilde{p}\right]$$
+$$=\frac{-\tilde{p}'}{\tanh 2\sigma_0}+\frac{1}{\sinh 2\sigma_0}\left[\tilde{p}'\cos 2\tau - 3\tilde{p}\sin 2\tau\right]$$
+Hence we can write $$Q_n=\tanh 2\sigma_0 \int_0^{\frac{\pi}{2}} \left(\tilde{p}'-\frac{1}{\cosh 2\sigma_0}\left[\tilde{p}'\cos 2\tau - 3\tilde{p}\sin 2\tau\right]\right) Y_n d\tau$$ $Y_n(\tau)$ has been numerically solved to give values at regular $\tau$ values. If we make the trapezium widths equal to the width between $Y_n(\tau)$ data points then this will work.
+
+
+\section{Analytic solutions in circular limit $\sigma_0 \rightarrow \infty$}
+\subsection{Evaluating $Q_n$}
+From $$Q_n=\tanh 2\sigma_0 \int_0^{\frac{\pi}{2}} \left(\tilde{p}'-\frac{1}{\cosh 2\sigma_0}\left[\tilde{p}'\cos 2\tau - 3\tilde{p}\sin 2\tau\right]\right) Y_n d\tau$$ we find in the limit $\sigma_0 \rightarrow \infty$ $$Q_n=\int_0^{\frac{\pi}{2}}\tilde{p}'Y_n d\tau$$ using $Y_n(\tau)=\frac{2}{\sqrt{\pi(1+4n^2)}}\sin(2n\tau)$ and $\lambda_n=\frac{64n^6-32n^4+4n^2}{1+4n^2}$ So the form we should consider is 
+$$Q_n=\frac{2}{\sqrt{\pi(1+4n^2)}}\int_0^{\frac{\pi}{2}}\tilde{p}'\sin(2n\tau)d\tau$$ Can we find a pressure $\tilde{p}$ s.t $Q_n=0$ for $n>1$?
+Let $\tilde{p}=-\cos(2\tau)$ so $\tilde{p}'=\sin(2\tau)$ so the problem we consider becomes $$Q_n=\frac{4}{\sqrt{\pi(1+4n^2)}}\int_0^{\frac{\pi}{2}}\sin(2\tau)\sin(2n\tau)d\tau$$
+For $n=1$ we have $$Q_1=\frac{4}{\sqrt{5\pi}}\left[\frac{4t-\sin4t}{8}\right]_0^{\frac{\pi}{2}}=\sqrt{\frac{\pi}{5}}$$
+and for $n>1$ we have $$Q_n=0$$
+Hence the governing equation becomes $$\frac{\partial^2a_1}{\partial z^2}-\mu_1^2a_1=-\frac{Q_1}{F}$$ where $\mu_1^2=\sqrt{\frac{\lambda_1}{F}}$
+and $$\frac{\partial^2a_n}{\partial z^2}-\mu_n^2a_n=0$$ for $n>1$. The second equation has the solution $a_{n>1}=0$. So for the circular limit we have 
+$$\frac{\partial^2a_1}{\partial z^2}-\mu_1^2a_1=-\frac{1}{\tilde{F}}\sqrt{\frac{\pi}{5}}$$
+The solution to this follows as $$a_1=\frac{\sqrt{\pi}}{\lambda_1\sqrt{5}}\left[1-\frac{\cosh(\mu_1(z-\frac{1}{2})}{\cosh(\frac{\mu_1}{2})}\right]$$
+Thus we can find expressions for $\eta$ and $\frac{\partial \eta}{\partial \tau}$ as follows 
+$$\eta = \frac{2}{5\lambda_1}\left[1-\frac{\cosh(\mu_1(z-\frac{1}{2})}{\cosh(\frac{\mu_1}{2})}\right]\sin(2\tau)$$
+$$\frac{\partial \eta}{\partial \tau} = \frac{4}{5\lambda_1}\left[1-\frac{\cosh(\mu_1(z-\frac{1}{2})}{\cosh(\frac{\mu_1}{2})}\right]\cos(2\tau)$$
+Evaluation of $\xi$ requires some study of limits as $\sigma_0\rightarrow \infty$.
+\\ Firstly, in the limit, $c^2=\frac{1}{\cosh^2\sigma_0}$ so $$\frac{1}{c^2\sinh 2\sigma_0}=\frac{\cosh^2\sigma_0}{\sinh 2\sigma_0}=\frac{1}{2}\frac{\cosh2\sigma_0}{\sinh2\sigma_0}=\frac{1}{2}$$
+We know $$\xi=\frac{1}{\sinh2\sigma_0}\left[\eta\sin2\tau - \frac{2h^2}{c^2}\frac{\partial \eta}{\partial \tau}\right]$$ using the limit shown previously and that $h\rightarrow 1$ as $\sigma_0 \rightarrow \infty$ we find 
+$$\xi=-\frac{\partial \eta}{\partial \tau}$$
+So we have $$\eta = \frac{2}{5\lambda_1}\left[1-\frac{\cosh(\mu_1(z-\frac{1}{2})}{\cosh(\frac{\mu_1}{2})}\right]\sin(2\tau)$$
+$$\xi=-\frac{4}{5\lambda_1}\left[1-\frac{\cosh(\mu_1(z-\frac{1}{2})}{\cosh(\frac{\mu_1}{2})}\right]\cos(2\tau)$$
+Using $\lambda_1=7.2$ we have 
+$$\eta = \frac{1}{18}\left[1-\frac{\cosh(\mu_1(z-\frac{1}{2})}{\cosh(\frac{\mu_1}{2})}\right]\sin(2\tau)$$
+$$\xi=-\frac{1}{9}\left[1-\frac{\cosh(\mu_1(z-\frac{1}{2})}{\cosh(\frac{\mu_1}{2})}\right]\cos(2\tau)$$
+In the limit, we find the following vectors $$\hat{n}=\begin{pmatrix}
+\cos\tau \\ \sin\tau \\ 0
+\end{pmatrix}$$ $$\hat{t}=\begin{pmatrix}
+-\sin\tau \\ \cos\tau \\ 0
+\end{pmatrix}$$ $$ \bar{r}=a\begin{pmatrix}
+\cos\tau \\ \sin\tau \\ lz
+\end{pmatrix}$$
+Thus we have $$\underline{\textbf{r}}= a\begin{pmatrix}
+\cos\tau \\ \sin\tau \\ lz
+\end{pmatrix} + \epsilon a\left(-\frac{1}{9}W\cos(2\tau)\begin{pmatrix}
+\cos\tau \\ \sin\tau \\ 0
+\end{pmatrix} + \frac{1}{18}W\sin(2\tau)\begin{pmatrix}
+-\sin\tau \\ \cos\tau \\ 0
+\end{pmatrix}\right)$$ where $$W=1-\frac{\cosh(\mu_1(z-\frac{1}{2}))}{\cosh(\frac{\mu_1}{2})}$$
+or $$\underline{\textbf{r}}= a\begin{pmatrix}
+\cos\tau \\ \sin\tau \\ lz
+\end{pmatrix} + \frac{\gamma W\epsilon a}{18}\left(2\cos(2\tau)\begin{pmatrix}
+\cos\tau \\ \sin\tau \\ 0
+\end{pmatrix} - \sin(2\tau)\begin{pmatrix}
+-\sin\tau \\ \cos\tau \\ 0
+\end{pmatrix}\right)$$
+where $$\mu_1=\sqrt{\frac{\lambda_1}{\tilde{F}}}$$
+
+\section{Formally finding $\tilde{P}$ s.t one mode is exact solution}
+We have the normalisation condition $$\int_0^{\frac{\pi}{2}}\frac{1}{h}Y_n\hat{\mathscr{F}}(Y_m)d\tau=\delta_{nm}$$
+To have only one contribution from leading term we require $\tilde{p}$ to satisfy $$\frac{\partial}{\partial \tau}(\tilde{p}h^3)=\gamma\hat{\mathscr{F}}(Y_1)$$
+In the limit as $\sigma_0 \rightarrow \infty$ we have L.H.S = $\tilde{p}'$ as $h=1$.
+\\ R.H.S: $$\hat{\mathscr{F}}(Y_1)=\tanh^2 2\sigma_0 (Y_1-\frac{\partial}{\partial \tau}(\frac{\partial}{\partial \tau}(Y_1)))$$
+$$\hat{\mathscr{F}}(Y_1)=\frac{10}{\sqrt{5\pi}}\sin2\tau$$
+So we need $$\tilde{p}'=\frac{10\gamma}{\sqrt{5\pi}}\sin2\tau$$ or $$\tilde{p}=\frac{-5\gamma}{\sqrt{5\pi}}\cos2\tau + C_I$$
+$$\tilde{p}=\gamma\cos2\tau + C_I$$
+\\
+\\ Generalising this for any mode $n$, we require $$\frac{\partial}{\partial \tau}(\tilde{p}h^3)=\gamma\hat{\mathscr{F}}(Y_n)$$
+and find $$\tilde{p}'=\gamma\sin 2n\tau$$ and so $$\tilde{p}=\gamma\cos 2n\tau + C_I$$
+
+
+\section{Exact solution for circular limit for $\tilde{p}=\gamma\cos2m\tau + C$}
+We know $$Q_n=\frac{2}{\sqrt{\pi(1+4n^2)}}\int_0^{\frac{\pi}{2}}\tilde{p}'\sin(2n\tau)d\tau$$
+$$Q_n=\frac{2}{\sqrt{\pi(1+4n^2)}}\int_0^{\frac{\pi}{2}}-2m\gamma\sin2m\tau\sin(2n\tau)d\tau$$
+$$Q_n=\frac{-4m\gamma}{\sqrt{\pi(1+4n^2)}}\int_0^{\frac{\pi}{2}}\sin2m\tau\sin(2n\tau)d\tau$$
+$$Q_m=\frac{-4m\gamma}{\sqrt{\pi(1+4m^2)}}\left[\frac{t}{2}-\frac{\sin4mt}{8m}\right]_0^{\frac{\pi}{2}}$$ where $n=m$ as $Q_n=0$ when $n\neq m$.
+$$Q_m=\frac{-m\gamma\sqrt{\pi}}{\sqrt{1+4m^2}}$$
+Using this in the ODE for $a$ we find $$a_m=\frac{-m\gamma\sqrt{\pi}}{\lambda_m\sqrt{1+4m^2}}\left[1-\frac{\cosh(\mu_m(z-\frac{1}{2})}{\cosh(\frac{\mu_m}{2})}\right]$$
+Thus we can find $\eta$ and $\xi$ as before to get
+$$\eta=\frac{-2m\gamma}{\lambda_m(1+4m^2)}\left[1-\frac{\cosh(\mu_m(z-\frac{1}{2})}{\cosh(\frac{\mu_m}{2})}\right]\sin2m\tau$$
+$$\xi=-\frac{\partial \eta}{\partial \tau}$$
+$$\xi=\frac{4m^2\gamma}{\lambda_m(1+4m^2)}\left[1-\frac{\cosh(\mu_m(z-\frac{1}{2})}{\cosh(\frac{\mu_m}{2})}\right]\cos2m\tau$$
+We can then construct the vector $\mathbf{r}$ as before.
+$$\underline{\textbf{r}}= a\begin{pmatrix}
+\cos\tau \\ \sin\tau \\ lz
+\end{pmatrix} + \frac{2W\epsilon an\gamma}{\lambda_n(1+4n^2)}\left(2n\cos(2n\tau)\begin{pmatrix}
+\cos\tau \\ \sin\tau \\ 0
+\end{pmatrix} - \sin(2n\tau)\begin{pmatrix}
+-\sin\tau \\ \cos\tau \\ 0
+\end{pmatrix}\right)$$
+
+\section{Numerical form of the pressure s.t $Q_m = 0$ for $n\neq m$ for any elliptical cross section $\sigma_0$}
+We have that $$Q_n=\frac{2\tanh^2\sigma_0}{c^2\sinh 2\sigma_0}\int_0^{\frac{\pi}{2}}\frac{1}{h}\frac{\partial}{\partial \tau}(\tilde{p}h^3)Y_n(\tau)d\tau$$
+We also know that $Y_n(\tau)$ must satisfy the following $$\int_0^{\frac{\pi}{2}}\frac{1}{h}\mathscr{F}(Y_n)Y_m(\tau)d\tau=\delta_{nm}$$
+So we should find a pressure s.t $$\frac{\partial}{\partial \tau}(\tilde{p}h^3)=\gamma\mathscr{F}(Y_n)$$ where $n$ is the modal contribution we desire. 
+\\ To solve this we consider the ODE $$ \gamma\tanh^2(2\sigma_0)\left(Y_n-\frac{\partial}{\partial \tau}\left(\frac{1}{\bar{B}^2h}\frac{\partial}{\partial \tau}\left(\frac{Y_n}{h}\right)\right)\right)-\frac{\partial}{\partial \tau}(\tilde{p}(\tau)h^3)=0$$
+As the $Y_n$ is a numerical result for non-circular cross-sections, we have to solve this problem numerically. Once the first term in the ODE was calculated over the $\tau$ mesh, An indefinite integral was required to find the form of $\tilde{p}$. Using the {\it{cumsum}} in Python, the integral was found, however the form of the function being integrated had steep gradients so to get an accurate result I had to increase the mesh to around 1000 points. This compounded with the fact that the $Q_n$ contributions were very sensitive to change meant that the form of the pressure had to be near perfect to get 0 contribution from higher ordered modes. I could compare this numerical result to the form of the pressure when $\sigma_0=\infty$. The results were analogous with only a small amount of error from the integral.
+\\
+\\ For $\sigma_0=\infty$ the form of the pressure is that of $\tilde{p}=\gamma\cos2m\tau +C$. Changing $\gamma$ results in a change in the deformation of the tube and changing the constant $C$ results in a linear transformation of the pressure. For elliptical cross-sections the change in constant of integration results in the form of the pressure changing to suit the shape to the ellipse, with the same deformation. The change in the scaler consatnt changes the deformation.
+\\
+\\ Thus for a given $\sigma_0$ there is a set of pressure's which give the same deformation for the same constant scalar. This looks something like this 
+$$\sigma_0 = 0.6 \ \ , \ \ \tilde{p}=\{\gamma\tilde{p}_1 , \gamma\tilde{p}_2 , \gamma\tilde{p}_3 , ... \} \ \ , \ \ Q_m=0, n \neq m$$ changing $\gamma$ will result in a new set of pressures with the same property except the deformation will be different. 
+
+\newpage
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{Tubes_circular_exact.pdf}
+    \caption*{$\sigma_0=\infty$}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{Tubes_circular_exact2.pdf}
+    \caption*{$\sigma_0=0.9540$}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{Tubes_circular_exact3.pdf}
+    \caption*{$\sigma_0=0.6$}
+  \end{subfigure}
+  %\vskip\baselineskip
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{Tubes_circular_exact4.pdf}
+    \caption*{$\sigma_0=0.3840$}
+  \end{subfigure}
+  \caption{Numerical forms of pressure which give $Q_n=0$ for $n>1$. All sub-figures use the same scalar constant but vary the integration constant. Changes arise due to the constant being multiplied by $\frac{1}{h^3}$. This is 1 in the circular limits but varies with $\tau$ otherwise.}
+  \label{fig:six-graphs}
+\end{figure}
+
+\newpage
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{Tubes_circular_exact_n2_1.pdf}
+    \caption*{$\sigma_0=\infty$}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{Tubes_circular_exact_n2_2.pdf}
+    \caption*{$\sigma_0=0.9540$}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{Tubes_circular_exact_n2_3.pdf}
+    \caption*{$\sigma_0=0.6$}
+  \end{subfigure}
+  %\vskip\baselineskip
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{Tubes_circular_exact_n2_4.pdf}
+    \caption*{$\sigma_0=0.3840$}
+  \end{subfigure}
+  \caption{Numerical forms of pressure which give $Q_n=0$ for $n \neq 2$. All sub-figures use the same scalar constant but vary the integration constant. Changes arise due to the constant being multiplied by $\frac{1}{h^3}$. This is 1 in the circular limits but varies with $\tau$ otherwise.}
+  \label{fig:six-graphs2}
+\end{figure} \vspace{1cm} The constant is scaled by $\frac{1}{h^3}$. This is true for any pressure as well, take any pressure and add $\frac{\gamma}{h^3}$ and the deformation will be the same.
+\\
+\\ Let $\tilde{p}=f(\tau)+\frac{\gamma}{h^3}$. Then it follows that $$Q_n=\frac{2\tanh^2\sigma_0}{c^2\sinh 2\sigma_0}\int_0^{\frac{\pi}{2}}\frac{1}{h}\frac{\partial}{\partial \tau}((f(\tau)+\frac{\gamma}{h^3})h^3)Y_n(\tau)d\tau$$
+$$Q_n=\frac{2\tanh^2\sigma_0}{c^2\sinh 2\sigma_0}\int_0^{\frac{\pi}{2}}\frac{1}{h}\frac{\partial}{\partial \tau}(h^3f(\tau)+\gamma)Y_n(\tau)d\tau$$
+In the circular limit, $h=1$ so you can linearly scale the pressure and the deformation will be the same. If its not the circular limit, then adding any multiple of $\frac{1}{h^3}$ will not change the deformation.
+
+\section{Non-differentiable point in the pressure}
+Suppose we have a pressure in the first quadrant as 
+$$\tilde{p}=\begin{cases}
+\gamma\tau & 0<\tau<\frac{\pi}{4} \\ 
+\gamma(\frac{\pi}{2}-\tau) & \frac{\pi}{4}<\tau<\frac{\pi}{2} 
+\end{cases}$$
+By approximating this pressure as $$\tilde{p}=\begin{cases}
+\gamma\tau & 0<\tau<\frac{\pi}{4}-\epsilon \\ 
+\gamma(\frac{\pi}{4}-\epsilon) & \frac{\pi}{4}-\epsilon<\tau<\frac{\pi}{4}+\epsilon \\
+\gamma(\frac{\pi}{2}-\tau) & \frac{\pi}{4}+\epsilon<\tau<\frac{\pi}{2} 
+\end{cases}$$
+So we can write
+\begin{align*}
+\frac{Q_n}{\tanh 2\sigma_0}= \int_0^{\frac{\pi}{4}-\epsilon} \left(\tilde{p}'-\frac{1}{\cosh 2\sigma_0}\left[\tilde{p}'\cos 2\tau - 3\tilde{p}\sin 2\tau\right]\right) Y_n d\tau
+\\ + \int_{\frac{\pi}{4}-\epsilon}^{\frac{\pi}{4}+\epsilon} \left(\tilde{p}'-\frac{1}{\cosh 2\sigma_0}\left[\tilde{p}'\cos 2\tau - 3\tilde{p}\sin 2\tau\right]\right) Y_n d\tau 
+\\ + \int_{\frac{\pi}{4}+\epsilon}^{\frac{\pi}{2}-\epsilon} \left(\tilde{p}'-\frac{1}{\cosh 2\sigma_0}\left[\tilde{p}'\cos 2\tau - 3\tilde{p}\sin 2\tau\right]\right) Y_n d\tau 
+\end{align*}
+Looking at term 2, as the pressure there is constant this simplifies to 
+$$  \tanh 2\sigma_0 \int_{\frac{\pi}{4}-\epsilon}^{\frac{\pi}{4}+\epsilon} \frac{3(\frac{\pi}{4}-\epsilon)\sin 2\tau}{\cosh 2\sigma_0}Y_n(\tau)d\tau$$
+
+Which equals 0 in the circular limit, or if $\epsilon<<1$
+\\
+\\ Also, we can approximate this form of pressure as a smooth function as follows:
+\\ Let $$\tilde{p}=-a\ln(\cosh(\frac{\tau}{a}-\frac{\pi}{4a}))+\frac{\pi}{4}$$ for small $a$. Then using this function in the code gives the same results as for the pressure above. There is also another non-differentiable point at $\tau=\frac{\pi}{2}$. Need to look at values around the $\tau=\frac{\pi}{4}$ for both smooth and non smooth functions.
+
+
+$$\frac{\partial}{\partial \tau}(\tilde{p}h^3)=\gamma\mathscr{F}(Y_m)$$
+\begin{align*}
+\frac{Q_n}{\tanh 2\sigma_0}= \int_0^{\frac{\pi}{4}-\epsilon} \left(\tilde{p}'-\frac{1}{\cosh 2\sigma_0}\left[\tilde{p}'\cos 2\tau - 3\tilde{p}\sin 2\tau\right]\right) Y_n d\tau
+\\ + \int_{\frac{\pi}{4}+\epsilon}^{\frac{\pi}{2}-\epsilon} \left(\tilde{p}'-\frac{1}{\cosh 2\sigma_0}\left[\tilde{p}'\cos 2\tau - 3\tilde{p}\sin 2\tau\right]\right) Y_n d\tau 
+\end{align*}
+\end{document}
